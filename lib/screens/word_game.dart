@@ -43,42 +43,6 @@ class WordGame extends StatelessWidget {
           }),
 
           //? From input the word section
-          /* Obx(() {
-            final WordGameModel listOfQuestion =
-                listQuestions[controller.indexQues.value];
-            return Align(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return Wrap(
-                      children: List.generate(
-                        listOfQuestion.answer.length,
-                        (index) => Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                          width: 40,
-                          child: TextField(
-                            onTap: null,
-                            readOnly: true,
-                            controller: controller.controllers[index],
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10),
-                            ),
-                            textAlign: TextAlign.center,
-                            maxLength: 1,
-                            keyboardType: TextInputType.text,
-                            textCapitalization: TextCapitalization.characters,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
-          }), */
           Obx(() {
             final WordGameModel listOfQuestion =
                 listQuestions[controller.indexQues.value];
@@ -101,21 +65,19 @@ class WordGame extends StatelessWidget {
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.blue,
-                                  width: 5.0,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15),
+                                  width: 2.0,
                                 ),
                               ),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
                             ),
                             textAlign: TextAlign.center,
+                            // maxLength: 1,
                             keyboardType: TextInputType.text,
-                            textCapitalization: TextCapitalization.characters,
+                            // textCapitalization: TextCapitalization.characters,
                             style: const TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
