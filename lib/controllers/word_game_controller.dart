@@ -47,7 +47,6 @@ class WordGameController extends GetxController {
     for (int i = 0; i < controllers.length; i++) {
       if (controllers[i].text.isEmpty) {
         controllers[i].text = char;
-        // Check the answer after adding a character
         _checkAnswer();
         break;
       }
@@ -57,10 +56,9 @@ class WordGameController extends GetxController {
   void _checkAnswer() {
     final WordGameModel listOfQuestion = listQuestions[indexQues.value];
     final enteredText = getEnteredText();
-    if (enteredText.length == listOfQuestion.answer.length - 1) {
-    }
+    print(enteredText.toLowerCase());
     if (enteredText.length == listOfQuestion.answer.length) {
-      if (enteredText == listOfQuestion.answer) {
+      if (enteredText.toLowerCase() == listOfQuestion.answer) {
         _showDialog("To'g'ri!", "Kiritilgan so'z to'g'ri.", nextQuestion: true);
       } else {
         _showDialog("Xato!", "Kiritilgan so'z noto'g'ri.", nextQuestion: false);
@@ -115,98 +113,3 @@ class WordGameController extends GetxController {
     _initializeButtons();
   }
 }
-
-
-// import 'dart:math';
-
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:get_x/models/word_game_model.dart';
-
-// class WordGameController extends GetxController {
-//   final RxInt indexQues = 1.obs;
-//   final RxInt hintCount = 0.obs;
-//   late List<TextEditingController> controllers;
-//   late List<String> buttons;
-
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     _initializeControllers();
-//     _initializeButtons();
-//   }
-
-//   void _initializeControllers() {
-//     final WordGameModel listOfQuestion = listQuestions[indexQues.value];
-//     controllers = List.generate(
-//       listOfQuestion.answer.length,
-//       (_) => TextEditingController(),
-//     );
-//   }
-
-//   void _initializeButtons() {
-//     final WordGameModel listOfQuestion = listQuestions[indexQues.value];
-//     buttons = generateArrayBtns(listOfQuestion.answer);
-//   }
-
-//   List<String> generateArrayBtns(String answer) {
-//     List<String> buttons = answer.split('')..shuffle();
-//     while (buttons.length < 16) {
-//       String randomLetter = String.fromCharCode(65 + Random().nextInt(26));
-//       buttons.add(randomLetter);
-//     }
-//     buttons.shuffle();
-//     return buttons;
-//   }
-
-//   void addCharacter(String char) {
-//     for (int i = 0; i < controllers.length; i++) {
-//       if (controllers[i].text.isEmpty) {
-//         controllers[i].text = char;
-//         break;
-//       }
-//     }
-//   }
-
-//   void updateIndex(int newIndex) {
-//     indexQues.value = newIndex;
-//     _initializeControllers();
-//     _initializeButtons();
-//   }
-
-//   String getEnteredText() {
-//     return controllers.map((controller) => controller.text).join();
-//   }
-
-//   void checkAnswer() {
-//     final WordGameModel listOfQuestion = listQuestions[indexQues.value];
-//     final enteredText = getEnteredText();
-//     print(enteredText);
-
-//     if (enteredText.length == listOfQuestion.answer.length) {
-//       if (enteredText == listOfQuestion.answer) {
-//         _showDialog("To'g'ri!", "Kiritilgan so'z to'g'ri.");
-//       } else {
-//         _showDialog("Xato!", "Kiritilgan so'z noto'g'ri.");
-//       }
-//     }
-//   }
-
-//   void _showDialog(String title, String message) {
-//     Get.dialog(
-//       AlertDialog(
-//         title: Text(title),
-//         content: Text(message),
-//         actions: [
-//           TextButton(
-//             onPressed: () {
-//               Get.back();
-//             },
-//             child: const Text('OK'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-

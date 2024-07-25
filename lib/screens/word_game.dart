@@ -13,21 +13,22 @@ class WordGame extends StatelessWidget {
     final WordGameController controller = Get.put(WordGameController());
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              "assets/images/bg.png",
-              fit: BoxFit.cover,
-            ),
-          ),
-          const BallWidget(),
+      body: Obx(() {
+        final WordGameModel listOfQuestion =
+            listQuestions[controller.indexQues.value];
 
-          //? Question section
-          Obx(() {
-            final WordGameModel listOfQuestion =
-                listQuestions[controller.indexQues.value];
-            return Container(
+        return Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                "assets/images/bg.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+            const BallWidget(),
+
+            //? Question section
+            Container(
               margin: const EdgeInsets.only(bottom: 300),
               padding: const EdgeInsets.all(10),
               alignment: Alignment.center,
@@ -39,14 +40,10 @@ class WordGame extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            );
-          }),
+            ),
 
-          //? From input the word section
-          Obx(() {
-            final WordGameModel listOfQuestion =
-                listQuestions[controller.indexQues.value];
-            return Align(
+            //? From input the word section
+            Align(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: LayoutBuilder(
@@ -72,9 +69,6 @@ class WordGame extends StatelessWidget {
                                   EdgeInsets.symmetric(horizontal: 10),
                             ),
                             textAlign: TextAlign.center,
-                            // maxLength: 1,
-                            keyboardType: TextInputType.text,
-                            // textCapitalization: TextCapitalization.characters,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -86,67 +80,67 @@ class WordGame extends StatelessWidget {
                   },
                 ),
               ),
-            );
-          }),
+            ),
 
-          //? Buttons section
-          Align(
-            child: Container(
-              margin: const EdgeInsets.only(top: 600),
-              padding: const EdgeInsets.all(10),
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1,
-                      crossAxisCount: 8,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4,
+            //? Buttons section
+            Align(
+              child: Container(
+                margin: const EdgeInsets.only(top: 600),
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 1,
+                        crossAxisCount: 8,
+                        crossAxisSpacing: 4,
+                        mainAxisSpacing: 4,
+                      ),
+                      itemCount: controller.buttons.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.containderBorder,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              alignment: Alignment.center,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  minimumSize: Size(
+                                    constraints.biggest.width,
+                                    constraints.biggest.height,
+                                  ),
+                                ),
+                                child: Text(
+                                  controller.buttons[index].toUpperCase(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  controller
+                                      .addCharacter(controller.buttons[index]);
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
-                    itemCount: controller.buttons.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return LayoutBuilder(
-                        builder: (context, constraints) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.containderBorder,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            alignment: Alignment.center,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                minimumSize: Size(
-                                  constraints.biggest.width,
-                                  constraints.biggest.height,
-                                ),
-                              ),
-                              child: Text(
-                                controller.buttons[index].toUpperCase(),
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              onPressed: () {
-                                controller
-                                    .addCharacter(controller.buttons[index]);
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

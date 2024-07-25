@@ -17,7 +17,7 @@ class WordGameModel {
 List<WordGameModel> listQuestions = [
   WordGameModel(
     question: "Qaysi sayyora Quyosh tizimidagi eng katta sayyoradir?",
-    answer: "yupiter",
+    answer: "yup",
   ),
   WordGameModel(
     question:
